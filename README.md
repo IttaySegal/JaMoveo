@@ -1,70 +1,119 @@
-# Getting Started with Create React App
+# 🎵 JaMoveo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+JaMoveo is a collaborative music rehearsal web app designed for band leaders and musicians. It enables real-time song sharing and synchronized lyric/chord viewing using WebSockets. Built with **React**, **Firebase Auth/Firestore**, and **Socket.IO**.
 
-## Available Scripts
+## 🔧 Features
 
-In the project directory, you can run:
+### 🔐 Authentication
+- Firebase-based signup/login for two roles: **Admin (conductor)** and **Player (musician)**.
+- Players must choose an instrument during signup.
 
-### `npm start`
+### 👨‍🎤 Player View
+- See the current song live, with chords and lyrics aligned.
+- Auto-scroll toggle for hands-free rehearsal.
+- Real-time updates when Admin selects a new song.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🎼 Admin View
+- Search songs by title or artist.
+- Select a song and broadcast it to all players.
+- End a session to return all players to the waiting screen.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🔗 Real-Time Sync
+- Powered by Socket.IO for live updates.
+- Late-joining users receive the current song automatically.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📁 Project Structure
 
-### `npm run build`
+```
+├── frontend/                # React App (create-react-app)
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── data/            # Song data in JSON format
+│   │   ├── pages/           # Auth + Admin + Player pages
+│   │   ├── firebase.js
+│   │   └── App.jsx
+│   └── public/
+├── backend/
+│   ├── server.js            # Express + Socket.IO server
+│   └── package.json
+├── README.md
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Frontend (Firebase Hosting)
+1. Run `npm run build` inside `frontend/`
+2. Deploy with Firebase CLI:
+```bash
+firebase init hosting
+firebase deploy
+```
 
-### `npm run eject`
+### Backend (Render.com)
+1. Push backend to GitHub (separate folder)
+2. Create a new **Web Service** on [Render](https://render.com)
+3. Set root directory to `/backend`
+4. Set:
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+5. Add environment variable:
+   - `FRONTEND_URL=https://your-frontend-url.web.app`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📦 Setup (Locally)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend
+```bash
+cd frontend
+npm install
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Backend
+```bash
+cd backend
+npm install
+node server.js
+```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📄 Song Format (JSON)
+Songs must be formatted as arrays of lines. Each line is an array of words, each with `lyrics` and optional `chords`:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```json
+[
+  [
+    { "lyrics": "Hey", "chords": "F" },
+    { "lyrics": "Jude", "chords": "C" },
+    ...
+  ],
+  ...
+]
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🧪 Tech Stack
 
-### Analyzing the Bundle Size
+- **Frontend**: React + TailwindCSS + Firebase Auth
+- **Backend**: Express + Socket.IO
+- **Database**: Firebase Firestore
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## 🧑‍💻 Contributors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Itay Segal (@IttaySegal)
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📃 License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT License. See `LICENSE` for details.
