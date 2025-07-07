@@ -1,14 +1,13 @@
-import { io } from "socket.io-client";
+import io from 'socket.io-client';
 
-const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || "http://localhost:3001";
+const SOCKET_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 
-const socket = io(SOCKET_URL, {
-  autoConnect: false,
+export const socket = io(SOCKET_URL, {
+  transports: ['websocket'],
   reconnection: true,
-  reconnectionAttempts: 5,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
-  timeout: 10000,
+  reconnectionAttempts: 5
 });
 
 // Debug logging in development
@@ -25,5 +24,3 @@ if (process.env.NODE_ENV === 'development') {
     console.error("[Socket Error] General error:", error);
   });
 }
-
-export default socket;
